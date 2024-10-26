@@ -10,24 +10,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <title>Document</title>
-    <link rel="stylesheet" href="landing.css">
+    <link rel="stylesheet" href="connect4.css">
 </head>
 <body>
     <header>
         <h1>Environment Games</h1>
         <nav>
             <ul>
-                <li><a href="landing.html">Home</a></li>
+                <li><a href="../Landing/landing.html">Home</a></li>
                 <li><a href="minesweeper.html">Minesweeper</a></li>
-                <li><a href="connect4.html">connect4</a></li>
+                <li><a href="../connect4/connect4.html">connect4</a></li>
                 <li><a href="index.html">tic-tac-toe</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>Welcome to our website</h1>
-        <p> Our goal is to make sustainable education fun and accessable.</p>
-        <p> The concept is to gamify sustainable education.</p>
+        <div id="game-board"></div>
+        <div id="message"></div>
+        <p>game</p>
+        <button onclick="resetGame()">Reset Game</button>
+        <script src="minesweeper.js"></script>
     </main>
     <footer>
 
