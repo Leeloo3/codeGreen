@@ -1,0 +1,109 @@
+:root {
+    --bg-color: #fefae0;
+    --bg-dark: #dda15e;
+    --main-color: #606c38;
+    --sub-color: #283618;
+    --tertiary: #bc6c25;
+
+    --ft-mono: "Sometype Mono", monospace;
+    --sans: "Bagel Fat One", system-ui;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+header{
+    position: absolute;
+    background-color: var(--main-color);
+    width: 100%;
+    text-align: center;
+    align-content: left;
+    font-size: 2rem;
+    font-family: var(--sans);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: var(--bg-color);
+    margin: 0px;
+    padding: 0%;
+    min-height: fit-content;
+    text-wrap: nowrap;
+    position: fixed;
+    top: 0;
+}
+li {
+    display: inline-block;
+    margin: 1rem;
+    background-color: var(--bg-dark);
+    width: 9rem;
+    min-width: fit-content;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+}
+a {
+    color: var(--bg-color);
+}
+body{
+    background-color: #fefae0;
+}
+
+main {
+    width: 80%;
+    margin: auto; 
+    margin-top: 12rem;
+    background-color: var(--bg-dark);
+    align-content: center;
+
+}
+/* main > div{
+    width: 100%;
+    margin: .3rem auto;
+    border: black dashed 1px;
+    height: 30rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: var(--sans);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: var(--bg-color);
+}
+   */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(6, 60px);
+    gap: 5px;
+    margin: 20px 0;
+    border: black 1px dashed;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell.red {
+    background-color: var(--sub-color);
+}
+
+.cell.yellow {
+    background-color: var(--tertiary);
+}
+
+footer{
+    /* background-color: #bc6c25; */
+    height: 6rem;
+    bottom: 0;
+}
