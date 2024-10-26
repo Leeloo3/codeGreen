@@ -29,11 +29,16 @@ function handleCellClick(event) {
             console.log("Current board state:", board);
             updateBoard(row, col);
             if (checkWin(row, col)) {
-                message.innerText = `${currentPlayer.toUpperCase()} Wins!`;
+                message.innerText = `${currentPlayer = currentPlayer === 'red' ? 'player1' : 'player2'} Wins!`;
                 endGame();
                 return;
             }
             currentPlayer = currentPlayer === 'red' ? 'yellow' : 'red';
+            if (currentPlayer == 'red'){
+              message.innerText = `it is currently Player1's turn!`;
+            } else {
+              message.innerText = `it is currently Player2's turn!`;
+            }
             return;
         }
     }
@@ -90,11 +95,13 @@ function endGame() {
   Array.from(document.querySelectorAll('.cell')).forEach(cell =>
     cell.removeEventListener('click', handleCellClick)
   );
+  gameBoard.classList.add('over');
 }
 
 function resetGame() {
     board = Array.from({ length: rows }, () => Array(columns).fill(null));
     currentPlayer = 'red';
+    gameBoard.classList.remove('over');
     message.innerText = '';
     Array.from(document.querySelectorAll('.cell')).forEach(cell => {
       cell.classList.remove('red', 'yellow');
