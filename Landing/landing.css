@@ -1,0 +1,80 @@
+:root {
+    --bg-color: #fefae0;
+    --bg-dark: #dda15e;
+    --main-color: #606c38;
+    --sub-color: #283618;
+    --tertiary: #bc6c25;
+
+    --ft-mono: "Sometype Mono", monospace;
+    --sans: "Bagel Fat One", system-ui;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+header{
+    position: absolute;
+    background-color: var(--main-color);
+    width: 100%;
+    text-align: center;
+    align-content: left;
+    font-size: 2rem;
+    font-family: var(--sans);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: var(--bg-color);
+    margin: 0px;
+    padding: 0%;
+    min-height: fit-content;
+    text-wrap: nowrap;
+    position: fixed;
+    top: 0;
+}
+li {
+    display: inline-block;
+    margin: 1rem;
+    background-color: var(--bg-dark);
+    width: 9rem;
+    min-width: fit-content;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+}
+a {
+    color: var(--bg-color);
+}
+body{
+    background-color: #fefae0;
+}
+
+main {
+    width: 80%;
+    margin: auto; 
+    margin-top: 12rem;
+    background-color: var(--bg-dark);
+    align-content: center;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: var(--sans);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: var(--bg-color);
+    border-radius: 1rem;
+
+}
+
+main > p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+footer{
+    /* background-color: #bc6c25; */
+    height: 6rem;
+    bottom: 0;
+}
