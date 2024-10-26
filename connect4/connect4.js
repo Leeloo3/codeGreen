@@ -21,20 +21,22 @@ function createBoard() {
 }
 
 function handleCellClick(event) {
-  const col = event.target.dataset.col;
-  for (let row = rows - 1; row >= 0; row--) {
-    if (!board[row][col]) {
-      board[row][col] = currentPlayer;
-      updateBoard(row, col);
-      if (checkWin(row, col)) {
-        message.innerText = `${currentPlayer.toUpperCase()} Wins!`;
-        endGame();
-        return;
-      }
-      currentPlayer = currentPlayer === 'red' ? 'yellow' : 'red';
-      return;
+    const col = Number(event.target.dataset.col);
+    for (let row = rows - 1; row >= 0; row--) {
+        if (!board[row][col]) {
+            board[row][col] = currentPlayer;
+            console.log(`Placed ${currentPlayer} at (${row}, ${col})`);
+            console.log("Current board state:", board);
+            updateBoard(row, col);
+            if (checkWin(row, col)) {
+                message.innerText = `${currentPlayer.toUpperCase()} Wins!`;
+                endGame();
+                return;
+            }
+            currentPlayer = currentPlayer === 'red' ? 'yellow' : 'red';
+            return;
+        }
     }
-  }
 }
 
 function updateBoard(row, col) {
@@ -43,25 +45,45 @@ function updateBoard(row, col) {
 }
 
 function checkWin(row, col) {
-  return (
-    checkDirection(row, col, 1, 0) || // Horizontal
-    checkDirection(row, col, 0, 1) || // Vertical
-    checkDirection(row, col, 1, 1) || // Diagonal /
-    checkDirection(row, col, 1, -1)   // Diagonal \
-  );
+    console.log(`Checking win at (${row}, ${col}) for ${currentPlayer}`);
+    return (
+        checkDirection(row, col, 0, 1) ||  // Horizontal
+        checkDirection(row, col, 1, 0) ||  // Vertical
+        checkDirection(row, col, 1, 1) ||  // Diagonal /
+        checkDirection(row, col, 1, -1)    // Diagonal \
+    );
 }
 
 function checkDirection(row, col, rowDir, colDir) {
-  let count = 1;
-  for (let i = 1; i < 4; i++) {
-    if (board[row + i * rowDir]?.[col + i * colDir] === currentPlayer) count++;
-    else break;
-  }
-  for (let i = 1; i < 4; i++) {
-    if (board[row - i * rowDir]?.[col - i * colDir] === currentPlayer) count++;
-    else break;
-  }
-  return count >= 4;
+    let count = 1;
+  
+    count += countInDirection(row, col, rowDir, colDir);
+    count += countInDirection(row, col, -rowDir, -colDir);
+  
+    console.log(`Direction (${rowDir}, ${colDir}): Total Count = ${count} for ${currentPlayer}`);
+    return count >= 4;
+}
+
+function countInDirection(row, col, rowDir, colDir) {
+    let consecutive = 0;
+    for (let i = 1; i < 4; i++) {
+        const r = row + i * rowDir;
+        const c = col + i * colDir;
+    
+        if (r < 0 || r >= rows || c < 0 || c >= columns) {
+            console.log(`Out of bounds at (${r}, ${c})`);
+            break;
+        }
+    
+        if (board[r][c] !== currentPlayer) {
+            console.log(`No match at (${r}, ${c}) - found ${board[r][c]} instead of ${currentPlayer}`);
+            break;
+        }
+        consecutive++;
+    }
+  
+    console.log(`countInDirection for ${currentPlayer}: ${consecutive} consecutive cells`);
+    return consecutive;
 }
 
 function endGame() {
@@ -71,13 +93,14 @@ function endGame() {
 }
 
 function resetGame() {
-  board = Array.from({ length: rows }, () => Array(columns).fill(null));
-  currentPlayer = 'red';
-  message.innerText = '';
-  Array.from(document.querySelectorAll('.cell')).forEach(cell => {
-    cell.classList.remove('red', 'yellow');
-    cell.addEventListener('click', handleCellClick);
-  });
+    board = Array.from({ length: rows }, () => Array(columns).fill(null));
+    currentPlayer = 'red';
+    message.innerText = '';
+    Array.from(document.querySelectorAll('.cell')).forEach(cell => {
+      cell.classList.remove('red', 'yellow');
+      cell.removeEventListener('click', handleCellClick);  // Reset events to prevent issues
+      cell.addEventListener('click', handleCellClick);
+    });
 }
-
+  
 createBoard();
