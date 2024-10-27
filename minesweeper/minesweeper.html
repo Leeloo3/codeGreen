@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="minesweeper.css">
+    
+</head>
+<body>
+    <header>
+        <h1>Environment Games</h1>
+        <nav>
+            <ul>
+                <li><a href="../Landing/landing.html">Home</a></li>
+                <li><a href="../minesweeper/minesweeper.html">Minesweeper</a></li>
+                <li><a href="../connect4/connect4.html">connect4</a></li>
+                <li><a href="../ticTacToe/index.html">tic-tac-toe</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="game-container">
+            <div id="minesweeper-board"></div>
+            <button id="reset-game">Reset Game</button>
+        </div>
+    </main>
+    <div id="quiz-popup" class="popup">
+        <div class="popup-content">
+            <h2>Environmental Quiz</h2>
+            <p id="quiz-question"></p>
+            <div id="quiz-options"></div>
+            <button id="submit-answer">Submit Answer</button>
+        </div>
+    </div>
+    <script src="minesweeper.js"></script>
+</body>
+</html>
