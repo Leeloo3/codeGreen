@@ -1,3 +1,5 @@
+import questions from './questions.js';
+
 const boxes = document.querySelectorAll('.box');
 const turnBoxes = document.querySelectorAll('.turn-box');
 const resultDisplay = document.getElementById('results');
@@ -6,12 +8,17 @@ const difficultyBtns = document.querySelectorAll('.difficulty-btn');
 const playerScoreDisplay = document.getElementById('player-score');
 const aiScoreDisplay = document.getElementById('ai-score');
 
+const quizPopup = document.getElementById('quiz-popup');
+const quizQuestion = document.getElementById('quiz-question');
+const quizOptions = document.getElementById('quiz-options');
+const submitAnswer = document.getElementById('submit-answer');
+
 let currentPlayer = 'X';
 let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let gameActive = false;
 let difficulty = 'easy';
 let playerScore = 0;
-let aiScore = 0;
+let wasteScore = 0;
 
 const winPatterns = [
     [0, 1, 2],
@@ -24,6 +31,12 @@ const winPatterns = [
     [2, 4, 6]
 ];
 
+let currentQuestion = null;
+let quizAnswered = false;
+let canMove = false;
+
+let selectedBox = null;
+
 function startGame() {
     gameBoard = ['', '', '', '', '', '', '', '', ''];
     gameActive = true;
@@ -34,75 +47,72 @@ function startGame() {
         box.style.backgroundColor = '';
     });
     updateTurnDisplay();
+    quizAnswered = false;
+    canMove = false;
 }
 
 function updateTurnDisplay() {
-    turnBoxes.forEach(box => box.style.backgroundColor = '');
+    turnBoxes.forEach(box => {
+        box.style.backgroundColor = '';
+        box.style.color = '';
+    });
     const activeBox = currentPlayer === 'X' ? turnBoxes[0] : turnBoxes[1];
-    activeBox.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-dark');
+    activeBox.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color');
+    activeBox.style.color = getComputedStyle(document.documentElement).getPropertyValue('--bg-color');
 }
 
 function handleClick(e) {
-    const box = e.target;
-    const index = box.dataset.index;
+  console.log("Box clicked");
+  const box = e.target;
+  const index = box.dataset.index;
 
-    if (gameBoard[index] !== '' || !gameActive) return;
+  if (gameBoard[index] !== '' || !gameActive) {
+    console.log("Invalid move");
+    return;
+  }
 
-    gameBoard[index] = currentPlayer;
-    box.innerHTML = currentPlayer === 'X' 
-        ? '<i class="fas fa-seedling"></i>' 
-        : '<i class="fas fa-biohazard"></i>';
-    
-    if (checkWin()) {
-        endGame(`${currentPlayer} Wins!`);
-        currentPlayer === 'X' ? playerScore++ : aiScore++;
-        updateScore();
-        return;
-    }
-
-    if (checkDraw()) {
-        endGame("It's a Draw!");
-        return;
-    }
-
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    updateTurnDisplay();
-
-    if (currentPlayer === 'O') {
-        setTimeout(aiMove, 500);
-    }
+  console.log("Valid move, showing quiz popup");
+  selectedBox = box;
+  showQuizPopup();
 }
 
-function aiMove() {
+function wasteMove() {
     let move;
+    let delay;
     switch (difficulty) {
         case 'easy':
             move = getRandomMove();
+            delay = 2000; // 2 seconds
             break;
         case 'medium':
             move = Math.random() < 0.5 ? getBestMove() : getRandomMove();
+            delay = 1000; // 1 second
             break;
         case 'hard':
             move = getBestMove();
+            delay = 500; // Keep the original 500ms delay for hard
             break;
     }
-    gameBoard[move] = 'O';
-    boxes[move].innerHTML = '<i class="fas fa-biohazard"></i>';
     
-    if (checkWin()) {
-        endGame('O Wins!');
-        aiScore++;
-        updateScore();
-        return;
-    }
+    setTimeout(() => {
+        gameBoard[move] = 'O';
+        boxes[move].innerHTML = '<i class="fas fa-biohazard"></i>';
+        
+        if (checkWin()) {
+            endGame('Waste Wins :,(');
+            wasteScore++;
+            updateScore();
+            return;
+        }
 
-    if (checkDraw()) {
-        endGame("It's a Draw!");
-        return;
-    }
+        if (checkDraw()) {
+            endGame("It's a Draw!");
+            return;
+        }
 
-    currentPlayer = 'X';
-    updateTurnDisplay();
+        currentPlayer = 'X';
+        updateTurnDisplay();
+    }, delay);
 }
 
 function getRandomMove() {
@@ -182,8 +192,8 @@ function endGame(message) {
 }
 
 function updateScore() {
-    playerScoreDisplay.textContent = playerScore;
-    aiScoreDisplay.textContent = aiScore;
+    document.getElementById('player-score').textContent = playerScore;
+    document.getElementById('waste-score').textContent = wasteScore;
 }
 
 function setDifficulty(e) {
@@ -198,3 +208,95 @@ playAgainBtn.addEventListener('click', startGame);
 difficultyBtns.forEach(btn => btn.addEventListener('click', setDifficulty));
 
 startGame();
+
+function showQuizPopup() {
+  console.log("Showing quiz popup");
+  currentQuestion = getRandomQuestion();
+  quizQuestion.textContent = currentQuestion.question;
+  quizOptions.innerHTML = '';
+  currentQuestion.options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.textContent = option;
+    button.addEventListener('click', () => selectOption(index));
+    quizOptions.appendChild(button);
+  });
+  quizPopup.style.display = 'flex';
+  submitAnswer.disabled = false;
+}
+
+function getRandomQuestion() {
+  return questions[Math.floor(Math.random() * questions.length)];
+}
+
+function selectOption(index) {
+  const options = quizOptions.getElementsByTagName('button');
+  for (let i = 0; i < options.length; i++) {
+    options[i].classList.remove('selected');
+  }
+  options[index].classList.add('selected');
+}
+
+submitAnswer.addEventListener('click', () => {
+  const selectedOption = quizOptions.querySelector('.selected');
+  if (selectedOption) {
+    const selectedIndex = Array.from(quizOptions.children).indexOf(selectedOption);
+    submitAnswer.disabled = true; // Prevent multiple submissions
+
+    if (selectedIndex === currentQuestion.correctAnswer) {
+      quizQuestion.textContent = "Correct! Making your move.";
+      setTimeout(() => {
+        quizPopup.style.display = 'none';
+        makeMove(selectedBox);
+      }, 1500);
+    } else {
+      quizQuestion.textContent = "Incorrect. Try another question.";
+      setTimeout(() => {
+        showQuizPopup(); // Show a new question if the answer is incorrect
+      }, 1500);
+    }
+  }
+});
+
+function makeMove(box) {
+  const index = box.dataset.index;
+  gameBoard[index] = currentPlayer;
+  box.innerHTML = currentPlayer === 'X' ? '<i class="fas fa-seedling"></i>' : '<i class="fas fa-biohazard"></i>';
+  box.style.backgroundColor = currentPlayer === 'X' ? getComputedStyle(document.documentElement).getPropertyValue('--main-color') : getComputedStyle(document.documentElement).getPropertyValue('--waste');
+  box.classList.add('played');
+
+  console.log(`Move made by ${currentPlayer} at index ${index}`);
+
+  if (checkWin()) {
+    resultDisplay.textContent = `${currentPlayer === 'X' ? 'Player' : 'AI'} wins!`;
+    gameActive = false;
+    updateScore(currentPlayer);
+  } else if (isDraw()) {
+    resultDisplay.textContent = "It's a draw!";
+    gameActive = false;
+  } else {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    updateTurnDisplay();
+    console.log(`Current player is now ${currentPlayer}`);
+    if (currentPlayer === 'O' && gameActive) {
+      console.log("Scheduling AI move");
+      setTimeout(aiMove, 2000); // Increased delay to 2 seconds for better visibility
+    }
+  }
+}
+
+function aiMove() {
+  console.log("AI move started");
+  let availableMoves = gameBoard.reduce((acc, cell, index) => {
+    if (cell === '') acc.push(index);
+    return acc;
+  }, []);
+  console.log("Available moves:", availableMoves);
+
+  if (availableMoves.length > 0) {
+    let move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+    console.log(`AI chose move at index ${move}`);
+    makeMove(boxes[move]);
+  } else {
+    console.log("No available moves for AI");
+  }
+}

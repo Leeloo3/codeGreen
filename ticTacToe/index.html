@@ -2,44 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content=""> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
     <title>Tic_Tac_Toe</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../Landing/landing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="difficulty-container">
-        <h3>Select Difficulty:</h3>
-        <button class="difficulty-btn" data-difficulty="easy">Easy</button>
-        <button class="difficulty-btn" data-difficulty="medium">Medium</button>
-        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+    <header>
+        <h1>Environment Games</h1>
+        <nav>
+            <ul>
+                <li><a href="../Landing/landing.html">Home</a></li>
+                <li><a href="minesweeper.html">Minesweeper</a></li>
+                <li><a href="../connect4/connect4.html">connect4</a></li>
+                <li><a href="../ticTacToe/index.html">tic-tac-toe</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="game-container">
+        <div class="difficulty-container">
+            <h3>Select Difficulty:</h3>
+            <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+        </div>
+        <div class="score-container">
+            <h3>Score:</h3>
+            <p>Player: <span id="player-score">0</span></p>
+            <p>Waste: <span id="waste-score">0</span></p>
+        </div>
+        <div class="turn-container">
+            <h3>Turn For</h3>
+            <div class="turn-box align"><i class="fas fa-seedling"></i></div>
+            <div class="turn-box align"><i class="fas fa-biohazard"></i></div>
+            <div class="bg"></div>
+        </div>
+        <div class="main-grid">
+            <div class="box align" data-index="0"></div>
+            <div class="box align" data-index="1"></div>
+            <div class="box align" data-index="2"></div>
+            <div class="box align" data-index="3"></div>
+            <div class="box align" data-index="4"></div>
+            <div class="box align" data-index="5"></div>
+            <div class="box align" data-index="6"></div>
+            <div class="box align" data-index="7"></div>
+            <div class="box align" data-index="8"></div>
+        </div>
+        <h2 id="results"></h2>
+        <button id="play-again">Play Again</button>
     </div>
-    <div class="score-container">
-        <h3>Score:</h3>
-        <p>Player: <span id="player-score">0</span></p>
-        <p>AI: <span id="ai-score">0</span></p>
-    </div>
-    <div class="turn-container">
-        <h3>Turn For</h3>
-        <div class="turn-box align"><i class="fas fa-seedling"></i></div>
-        <div class="turn-box align"><i class="fas fa-biohazard"></i></div>
-        <div class="bg"></div>
-    </div>
-    <div class="main-grid">
-        <div class="box align" data-index="0"></div>
-        <div class="box align" data-index="1"></div>
-        <div class="box align" data-index="2"></div>
-        <div class="box align" data-index="3"></div>
-        <div class="box align" data-index="4"></div>
-        <div class="box align" data-index="5"></div>
-        <div class="box align" data-index="6"></div>
-        <div class="box align" data-index="7"></div>
-        <div class="box align" data-index="8"></div>
-    </div>
-    <h2 id="results"></h2>
-    <button id="play-again">Play Again</button>
     
-    <script src="script.js"></script>
+    <div id="quiz-popup" class="popup">
+      <div class="popup-content">
+        <h2>Environmental Quiz</h2>
+        <p id="quiz-question"></p>
+        <div id="quiz-options"></div>
+        <button id="submit-answer">Submit Answer</button>
+      </div>
+    </div>
+    
+    <script src="script.js" type="module"></script>
 </body>
 </html>
