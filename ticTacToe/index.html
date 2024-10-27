@@ -6,26 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic_Tac_Toe</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="difficulty-container">
+        <h3>Select Difficulty:</h3>
+        <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+        <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+    </div>
+    <div class="score-container">
+        <h3>Score:</h3>
+        <p>Player: <span id="player-score">0</span></p>
+        <p>AI: <span id="ai-score">0</span></p>
+    </div>
     <div class="turn-container">
         <h3>Turn For</h3>
-        <div class="turn-box align">X</div>
-        <div class="turn-box align">O</div>
+        <div class="turn-box align"><i class="fas fa-seedling"></i></div>
+        <div class="turn-box align"><i class="fas fa-biohazard"></i></div>
         <div class="bg"></div>
     </div>
     <div class="main-grid">
-        <div class="box align">0</div>
-        <div class="box align">1</div>
-        <div class="box align">2</div>
-        <div class="box align">3</div>
-        <div class="box align">4</div>
-        <div class="box align">5</div>
-        <div class="box align">6</div>
-        <div class="box align">7</div>
-        <div class="box align">8</div>
+        <div class="box align" data-index="0"></div>
+        <div class="box align" data-index="1"></div>
+        <div class="box align" data-index="2"></div>
+        <div class="box align" data-index="3"></div>
+        <div class="box align" data-index="4"></div>
+        <div class="box align" data-index="5"></div>
+        <div class="box align" data-index="6"></div>
+        <div class="box align" data-index="7"></div>
+        <div class="box align" data-index="8"></div>
     </div>
-    <h2 id="results">X Wins!</h2>
+    <h2 id="results"></h2>
     <button id="play-again">Play Again</button>
     
     <script src="script.js"></script>

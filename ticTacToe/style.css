@@ -95,3 +95,44 @@ body{
     font-size: 1.2rem;
     border-radius: 5px;
 }
+
+.difficulty-container, .score-container {
+    margin-bottom: 20px;
+}
+
+.difficulty-btn {
+    background-color: var(--bg-dark);
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.difficulty-btn.active {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+}
+
+#results {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.box i, .turn-box i {
+    font-size: 2em;
+    color: var(--main-color);
+}
+
+.turn-box i {
+    font-size: 1.5em;
+}
+
+.box i.fa-seedling {
+    color: #4CAF50;  /* Green color for plants */
+}
+
+.box i.fa-gem {
+    color: #9C27B0;  /* Purple color for rocks/gems */
+}
