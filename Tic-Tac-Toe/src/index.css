@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --bg-color: #f4f1de;
+    --bg-dark: #e07a5f;
+    --main-color: #3d405b;
+    --sub-color: #81b29a;
+    --tertiary: #f2cc8f;
+    --text-light: #f4f1de;
+    --text-dark: #3d405b;
+
+    --ft-mono: "Sometype Mono", monospace;
+    --sans: "Bagel Fat One", system-ui;
+}
+

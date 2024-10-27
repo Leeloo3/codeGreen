@@ -60,19 +60,19 @@ function App() {
 
   const getDifficultyColor = (level: Difficulty) => {
     return difficulty === level
-      ? 'bg-blue-500 text-white'
-      : 'bg-gray-200 hover:bg-gray-300 text-gray-700';
+      ? 'bg-earth-green text-earth-beige'
+      : 'bg-earth-tan hover:bg-earth-olive text-earth-brown';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+    <div className="min-h-screen bg-gradient-to-br from-earth-beige to-earth-tan flex items-center justify-center p-4">
+      <div className="bg-earth-beige rounded-xl shadow-2xl p-8 max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
-            <Swords className="w-8 h-8 text-blue-500" />
+          <h1 className="text-3xl font-bold text-earth-brown mb-2 flex items-center justify-center gap-2">
+            <Swords className="w-8 h-8 text-earth-brown" />
             Tic Tac Toe
           </h1>
-          <p className="text-gray-600">Challenge the AI!</p>
+          <p className="text-earth-olive">Challenge the AI!</p>
         </div>
 
         <div className="flex justify-center gap-2 mb-6">
@@ -100,18 +100,18 @@ function App() {
             <div className="flex items-center justify-center gap-2 text-2xl font-bold mb-4">
               {winner === 'X' && (
                 <>
-                  <Trophy className="w-6 h-6 text-yellow-500" />
-                  <span className="text-green-600">You Won!</span>
+                  <Trophy className="w-6 h-6 text-earth-olive" />
+                  <span className="text-earth-green">You Won!</span>
                 </>
               )}
               {winner === 'O' && (
                 <>
-                  <Bot className="w-6 h-6 text-red-500" />
-                  <span className="text-red-600">AI Won!</span>
+                  <Bot className="w-6 h-6 text-earth-brown" />
+                  <span className="text-earth-brown">AI Won!</span>
                 </>
               )}
               {winner === 'draw' && (
-                <span className="text-gray-600">It's a Draw!</span>
+                <span className="text-earth-olive">It's a Draw!</span>
               )}
             </div>
           </div>
@@ -119,7 +119,7 @@ function App() {
 
         <button
           onClick={resetGame}
-          className="mt-6 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+          className="mt-6 w-full bg-earth-green hover:bg-earth-olive text-earth-beige font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
         >
           <RotateCcw className="w-4 h-4" />
           New Game
